@@ -1,7 +1,9 @@
 # FastAPI Gateway 
 
-
 Create a configuration for the FastAPI Gateway 
+
+Require a working example with the Admin screen enable. 
+User should be able to login and review Admin screen 
 
 Ensure Configuration include Simulated SSO
 
@@ -11,6 +13,7 @@ Gateway should be able to redirect Calls to Two Different LLMs
 
 Also include a RAG Service 
 
+I just need a minimal configuration that includes the Admin UI 
 
 ```
 model_list:
