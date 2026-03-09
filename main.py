@@ -1,16 +1,28 @@
-# This is a sample Python script.
+from fastapi import FastAPI
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqladmin import Admin, ModelView
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+DATABASE_URL = "sqlite+aiosqlite:///./dev.db"
 
+engine = create_async_engine(DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(
+    engine, class_=AsyncSession, expire_on_commit=False
+)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+Base = declarative_base()
 
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    email = Column(String, unique=True)
+    name = Column(String)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+app = FastAPI()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+class UserAdmin(ModelView, model=User):
+    column_list = [User.id, User.email, User.name]
+
+admin = Admin(app, engine)
+admin.add_view(UserAdmin)

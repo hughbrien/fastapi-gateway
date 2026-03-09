@@ -1,5 +1,25 @@
 # FastAPI Gateway 
 
+
+```
+
+mkdir litellm-local
+cd litellm-local
+
+python3 -m venv venv
+source venv/bin/activate
+
+pip install --upgrade pip
+pip install "litellm[proxy]"
+
+source .env 
+
+./run.sh
+
+
+
+```
+
 Create a configuration for the FastAPI Gateway 
 
 Require a working example with the Admin screen enable. 
